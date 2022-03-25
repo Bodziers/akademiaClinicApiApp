@@ -5,7 +5,7 @@ target/
 !**/src/test/**/target/
 
 ### UI frontend ###
-**/src/ui/
+**/src/main/webapp/
 
 ### STS ###
 .apt_generated
