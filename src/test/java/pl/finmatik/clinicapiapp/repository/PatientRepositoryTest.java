@@ -28,7 +28,7 @@ class PatientRepositoryTest {
 
         @BeforeEach
         public void setUp() {
-           patient = new Patient(1L,"Adam","Nowak",1234567890L, "123 444 555", "info");
+           patient = new Patient(1L,"Adam","Nowak",1111111111L, "123 444 555", "info");
         }
 
         @AfterEach
@@ -41,12 +41,11 @@ class PatientRepositoryTest {
         void should_register_patient() {
             //given
             entityManager.persist(patient);
-            patientRepository.save(new Patient(2L,"Ewa","Nowak",1234567899L, "123 444 555", "info"));
+            patientRepository.save(new Patient(2L,"Ewa","Nowak",1111111112L, "123 444 555", "info"));
             //when
-            Optional<Patient> patient = patientRepository.findById(1234567899L);
+            Optional<Patient> patient = patientRepository.findById(1111111112L);
             //then
             assertThat(patient).isPresent();
-            assertThat(patientRepository.count()).isEqualTo(2);
         }
 
         @Test
@@ -54,31 +53,32 @@ class PatientRepositoryTest {
             //given
             entityManager.persist(patient);
             //when
-            patientRepository.deleteById(1234567890L);
+            patientRepository.deleteById(1111111111L);
             //then
-            assertThat(patientRepository.count()).isZero();
+            assertThat(patientRepository.findById(1111111111L)).isEmpty();
         }
+
         @Test
         void should_find_patient_by_id() {
             //given
             entityManager.persist(patient);
             //when
-            Optional<Patient> patient = patientRepository.findById(1234567890L);
+            Optional<Patient> patient = patientRepository.findById(1111111111L);
             //then
             assertThat(patient).isPresent();
-            assertThat(patientRepository.count()).isEqualTo(1);
         }
 
         @Test
         void should_get_all_patients() {
             //given
+            Long numberOfPatient = patientRepository.count();
             entityManager.persist(patient);
-            patientRepository.save(new Patient(2L,"Ewa","Nowak",1234567899L, "123 444 555", "info"));
+            patientRepository.save(new Patient(2L,"Ewa","Nowak",1111111112L, "123 444 555", "info"));
             //when
             List<Patient> patientList = (List<Patient>) patientRepository.findAll();
             //then
             assertThat(patientList).isNotNull();
-            assertThat(patientList.size()).isEqualTo(2);
+            assertThat(numberOfPatient+2).isEqualTo(patientList.size());
         }
 }
 

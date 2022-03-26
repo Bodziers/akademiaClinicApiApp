@@ -9,7 +9,7 @@ import pl.finmatik.clinicapiapp.service.dto.PatientDTO;
 import javax.validation.Valid;
 import java.util.List;
 
-@RestController
+@RestController()
 public class PatientController {
 
     private final PatientService patientService;
@@ -30,19 +30,19 @@ public class PatientController {
         return ResponseEntity.status(HttpStatus.OK).body(patientDTO);
     }
 
-    @DeleteMapping("/api/patient/{pesel}")
+    @DeleteMapping("/api/patients/{pesel}")
     public ResponseEntity<Void> deletePatientByPesel(@PathVariable(value="pesel") final Long pesel) {
         this.patientService.deletePatientByPesel(pesel);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
-    @PostMapping("/api/patient")
+    @PostMapping("/api/patients")
     public ResponseEntity<Void> registerPatient(@RequestBody @Valid PatientDTO patientDTO) {
         patientService.registerPatient(patientDTO);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @PutMapping("/api/patient/{pesel}")
+    @PutMapping("/api/patients/{pesel}")
     public ResponseEntity<PatientDTO> updatePatient(@PathVariable(value="pesel") final Long pesel, @RequestBody @Valid PatientDTO patientDTO) {
         patientService.updatePatient(pesel, patientDTO);
         return ResponseEntity.status(HttpStatus.OK).build();

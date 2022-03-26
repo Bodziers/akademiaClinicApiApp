@@ -62,4 +62,5 @@ class PatientMapperTest {
         assertEquals(testPhoneNumber, patientSlimDTO.getPhoneNumber());
     }
 
+
 }
