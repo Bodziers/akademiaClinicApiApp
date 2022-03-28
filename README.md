@@ -1,4 +1,4 @@
-##Simple Demo Clinic API APP
+## Simple Demo Clinic API APP
 
 Application build with:
 * java 17, 
